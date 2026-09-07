@@ -11,6 +11,7 @@
 - **SKILL.md 只做入口路由**：工作流编排 + 按需加载指引，常驻上下文的只有 2 条 description
 - **细节知识下沉 references/**：23 份参考文档按任务加载，用多少读多少
 - **技能边界清晰**：做账（accounting）和查账（audit）是两类人群、两条工作流，触发判断零歧义
+- **公司级记忆飞轮**：references 没有的科目与政策，经确认写入本地公司档案，越用越懂你的公司
 
 ## 技能一览
 
@@ -67,7 +68,29 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 
 应收账款余额 380 万，帮我做账龄分析和坏账评估
 → 触发 audit：输出账龄分析表，标记长账龄客户和坏账风险
+
+上次新增的「1122-01 应收账款—A客户」这个科目，这个月继续用
+→ accounting：从公司记忆直接命中，无需重新确认
 ```
+
+## 记忆机制：越用越懂你的公司
+
+准则只有一套，公司各有各的科目体系和会计习惯。两个技能都内置公司级记忆：references 没覆盖的科目、政策、审计发现，经你确认后写入本地公司档案，下次自动沿用——技能是通用的，记忆是专属的。
+
+```
+~/.china-finance-skills/companies/{公司名}/
+├── profile.md            # 公司档案（accounting / audit 共用）
+├── custom-accounts.md    # 科目扩展（accounting）
+├── policies.md           # 会计政策与习惯（accounting）
+└── findings.md           # 历史审计发现（audit）
+```
+
+- **写入有门槛**：agent 的推断一律标注「请确认」，确认后才入记忆，防止记忆污染
+- **优先级**：公司记忆 > references 通用规则 > agent 推断
+- **隐私**：记忆只存本地（路径可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义），绝不写入 git 仓库
+- **生态飞轮**：整理记忆时发现行业通用知识，欢迎提 PR 补充进 references/
+
+机制细节见 [accounting/SKILL.md](accounting/SKILL.md) 与 [audit/SKILL.md](audit/SKILL.md) 的「记忆机制」一节。
 
 ## 与原版的关系
 
