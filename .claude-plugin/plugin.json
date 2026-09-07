@@ -1,0 +1,18 @@
+{
+  "name": "china-finance-skills",
+  "description": "中国会计准则财务技能包（精简重构版）— 2 个技能覆盖记账理账到审计全流程",
+  "version": "1.0.0",
+  "skills": [
+    "accounting",
+    "audit"
+  ],
+  "platforms": [
+    "claude-code",
+    "cursor",
+    "opencode",
+    "trae",
+    "trae-cn",
+    "gemini-cli",
+    "github-copilot"
+  ]
+}
