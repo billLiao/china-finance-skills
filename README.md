@@ -9,7 +9,7 @@
 市面上多数技能包把每个知识点拆成独立技能，装上后几十个 description 常驻上下文，agent 还要在相似技能里做选择题。本仓库遵循 **渐进式披露（progressive disclosure）** 原则重新组织：
 
 - **SKILL.md 只做入口路由**：工作流编排 + 按需加载指引，常驻上下文的只有 2 条 description
-- **细节知识下沉 references/**：23 份参考文档按任务加载，用多少读多少
+- **细节知识下沉 references/**：30 份参考文档按任务加载，用多少读多少
 - **技能边界清晰**：做账（accounting）和查账（audit）是两类人群、两条工作流，触发判断零歧义
 - **公司级记忆飞轮**：references 没有的科目与政策，经确认写入本地公司档案，越用越懂你的公司
 
@@ -27,6 +27,13 @@
 | `margins.md` | 毛利率/净利率分析：驱动因素拆解 + 行业对标 + 利润质量 |
 | `vat.md` / `income-tax.md` / `individual-tax.md` | 增值税（数电发票）/ 企业所得税（含递延税）/ 个人所得税 |
 | `tax-rates.md` | 2025-2026 税率速查（增值税/企税/个税/附加税/印花税） |
+| `ar-aging.md` | 应收账龄与催收：账龄分档、坏账计提参考、催收升级路径与催款函模板 |
+| `cash-forecast.md` | 资金计划：13 周滚动现金流预测、安全垫、季节性调整 |
+| `consolidation.md` | 合并报表：合并范围判断、四类抵消分录、少数股东权益 |
+| `financial-analysis.md` | 财务分析报告：月度/年度报告框架、营运偿债指标、净现比 |
+| `customer-profitability.md` | 客户盈利与集中度：真实盈利（含账期成本）、TOP 占比、HHI 指数 |
+| `cost-volume-profit.md` | 本量利与盈亏平衡：保本点、降价换量测算、报价底线 |
+| `bank-reconciliation.md` | 银行对账：四类未达账、余额调节表、支付宝/微信对账 |
 
 ### 📕 audit — 审计程序
 
@@ -71,6 +78,9 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 
 上次新增的「1122-01 应收账款—A客户」这个科目，这个月继续用
 → accounting：从公司记忆直接命中，无需重新确认
+
+下季度现金流够不够？帮我做 13 周资金预测
+→ 触发 accounting：输出 13 周滚动预测表，标记低于安全垫的周次并给行动建议
 ```
 
 ## 记忆机制：越用越懂你的公司
@@ -94,7 +104,9 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 
 ## 与原版的关系
 
-本仓库是对 [kylin985ti/china-accounting-skills](https://github.com/kylin985ti/china-accounting-skills)（25 个独立技能）的**结构重构**：全部财务知识内容保留，组织方式从"25 个平铺技能"改为"2 个入口技能 + 23 份按需加载的参考文档"，并统一了跨文档引用路径。内容层面的改动仅为合并与引用修正，未增删财务知识点。
+本仓库是对 [kylin985ti/china-accounting-skills](https://github.com/kylin985ti/china-accounting-skills)（25 个独立技能）的**结构重构**：全部财务知识内容保留，组织方式从"25 个平铺技能"改为"2 个入口技能 + 按需加载的参考文档"，并统一了跨文档引用路径。内容层面的改动仅为合并与引用修正，未增删财务知识点。
+
+v1.2.0 起新增 7 份管理会计与资金管理类参考文档（ar-aging / cash-forecast / consolidation / financial-analysis / customer-profitability / cost-volume-profit / bank-reconciliation），为本仓库原创内容。
 
 ## 免责声明
 
@@ -102,7 +114,7 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 
 ## 致谢
 
-本项目的全部财务与审计知识内容来自 [kylin985ti/china-accounting-skills](https://github.com/kylin985ti/china-accounting-skills)（MIT License，Copyright (c) 2026 kylin985ti），感谢原作者的整理工作。本仓库仅对其技能组织结构进行重构，原始内容版权归原作者所有。
+本项目的财务与审计知识内容来自 [kylin985ti/china-accounting-skills](https://github.com/kylin985ti/china-accounting-skills)（MIT License，Copyright (c) 2026 kylin985ti），感谢原作者的整理工作。本仓库仅对其技能组织结构进行重构，原始内容版权归原作者所有；v1.2.0 起新增的参考文档为本仓库原创。
 
 ## License
 
