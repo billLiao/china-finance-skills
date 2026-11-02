@@ -1,18 +1,39 @@
 {
   "name": "china-finance-skills",
   "description": "中国会计准则财务技能包（精简重构版）— 2 个技能覆盖记账理账到审计全流程",
-  "version": "1.2.0",
-  "skills": [
+  "version": "1.3.0",
+  "author": {
+    "name": "billLiao",
+    "url": "https://github.com/billLiao"
+  },
+  "repository": "https://github.com/billLiao/china-finance-skills",
+  "license": "MIT",
+  "keywords": [
+    "china",
     "accounting",
-    "audit"
+    "audit",
+    "finance",
+    "会计",
+    "审计",
+    "税务"
   ],
-  "platforms": [
-    "claude-code",
-    "cursor",
-    "opencode",
-    "trae",
-    "trae-cn",
-    "gemini-cli",
-    "github-copilot"
-  ]
+  "skills": [
+    "china-accounting",
+    "china-audit"
+  ],
+  "metadata": {
+    "platforms": [
+      "claude-code",
+      "codex",
+      "gemini-cli",
+      "cursor",
+      "opencode",
+      "github-copilot",
+      "trae",
+      "trae-cn",
+      "workbuddy",
+      "qianwen-office",
+      "doubao-work"
+    ]
+  }
 }

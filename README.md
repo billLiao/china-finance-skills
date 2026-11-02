@@ -10,12 +10,12 @@
 
 - **SKILL.md 只做入口路由**：工作流编排 + 按需加载指引，常驻上下文的只有 2 条 description
 - **细节知识下沉 references/**：30 份参考文档按任务加载，用多少读多少
-- **技能边界清晰**：做账（accounting）和查账（audit）是两类人群、两条工作流，触发判断零歧义
+- **技能边界清晰**：做账（china-accounting）和查账（china-audit）是两类人群、两条工作流，触发判断零歧义
 - **公司级记忆飞轮**：references 没有的科目与政策，经确认写入本地公司档案，越用越懂你的公司
 
 ## 技能一览
 
-### 📗 accounting — 记账理账报表税务
+### 📗 china-accounting — 记账理账报表税务
 
 | 参考文档 | 内容 |
 |---------|------|
@@ -35,7 +35,7 @@
 | `cost-volume-profit.md` | 本量利与盈亏平衡：保本点、降价换量测算、报价底线 |
 | `bank-reconciliation.md` | 银行对账：四类未达账、余额调节表、支付宝/微信对账 |
 
-### 📕 audit — 审计程序
+### 📕 china-audit — 审计程序
 
 | 参考文档 | 内容 |
 |---------|------|
@@ -48,39 +48,65 @@
 
 ## 安装
 
-```bash
-# 方式一：skills CLI
-npx skills add billLiao/china-finance-skills
+### 方式一：skills CLI（推荐，一次装到多个 agent）
 
-# 方式二：手动复制（Claude Code 为例）
-git clone https://github.com/billLiao/china-finance-skills.git
-cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skills/
+```bash
+npx skills add billLiao/china-finance-skills           # 交互式选择 agent
+npx skills add billLiao/china-finance-skills -g        # 全局安装（所有项目可用）
+npx skills add billLiao/china-finance-skills -a codex  # 指定 agent（codex/cursor/opencode...）
 ```
 
-| 平台 | 技能目录 |
+### 方式二：各平台原生命令
+
+| 平台 | 安装 / 使用 |
+|------|------------|
+| Claude Code | `/plugin marketplace add billLiao/china-finance-skills` → `/plugin install china-finance-skills` |
+| Codex (OpenAI) | `npx skills add billLiao/china-finance-skills -a codex`，或拷贝到 `~/.agents/skills/`；会话内 `/skills` 或 `$china-accounting` 调用 |
+| Gemini CLI (Google) | `gemini skills install https://github.com/billLiao/china-finance-skills` |
+| GitHub Copilot | `gh skill install billLiao/china-finance-skills china-accounting`（audit 同理） |
+| Cursor | 拷贝到 `.cursor/skills/`（项目）或 `~/.cursor/skills/`（全局）；Agent 内 `/china-accounting` 调用 |
+| OpenCode | 拷贝到 `.opencode/skills/` 或 `~/.config/opencode/skills/`；技能自动注册为斜杠命令 |
+| Trae / Trae CN | 拷贝到 `.trae/skills/`（项目）或 `~/.trae/skills/`（全局），或 Settings → Rule & Skills → Skills 导入 |
+| WorkBuddy（腾讯） | 设置 → 技能管理 → 导入技能（选技能 zip 包），或 CLI `workbuddy skills add ./china-accounting` |
+| 千问办公（阿里） | 企业版网页端将 `SKILL.md` 上传至组织技能库，管理员审核后组织内共享；对话框输入 `/` 调用 |
+| 豆包工作（字节） | 通过技能商店 / 组织技能共享分发（SKILL.md 格式通用）；飞书账号登录可结合企业上下文使用 |
+
+> 国内办公 Agent（WorkBuddy / 千问办公 / 豆包工作）走应用内技能生态，不读本地技能目录，但均兼容 SKILL.md 开放标准。`references/` 附件能否随包导入以各平台当前版本为准：WorkBuddy 支持 zip 全目录导入；单文件上传型平台建议将用到的参考文档内容一并粘贴。
+
+### 方式三：手动复制
+
+```bash
+git clone https://github.com/billLiao/china-finance-skills.git
+cp -r china-finance-skills/china-accounting china-finance-skills/china-audit ~/.claude/skills/
+```
+
+| 平台 | 全局技能目录 |
 |------|---------|
 | Claude Code | `~/.claude/skills/` |
-| Cursor | `.cursor/skills/` |
-| OpenCode | `.opencode/skills/` |
-| Trae (中国版) | `.trae-cn/skills/` |
+| Codex | `~/.agents/skills/` |
+| Gemini CLI | `~/.gemini/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| OpenCode | `~/.config/opencode/skills/` |
+| GitHub Copilot | `~/.copilot/skills/` |
+| Trae (中国版) | `~/.trae/skills/` |
 
 ## 使用示例
 
 ```
 帮我给一家年收入 300 万的小规模纳税人企业建账
-→ 触发 accounting：先判断准则（小企业会计准则），再输出 66 科目建账方案
+→ 触发 china-accounting：先判断准则（小企业会计准则），再输出 66 科目建账方案
 
 12 月底了，带我走一遍月末结账
-→ 触发 accounting：按准则版本输出 5 步/7 步结账清单，含计提、结转分录
+→ 触发 china-accounting：按准则版本输出 5 步/7 步结账清单，含计提、结转分录
 
 应收账款余额 380 万，帮我做账龄分析和坏账评估
-→ 触发 audit：输出账龄分析表，标记长账龄客户和坏账风险
+→ 触发 china-audit：输出账龄分析表，标记长账龄客户和坏账风险
 
 上次新增的「1122-01 应收账款—A客户」这个科目，这个月继续用
-→ accounting：从公司记忆直接命中，无需重新确认
+→ china-accounting：从公司记忆直接命中，无需重新确认
 
 下季度现金流够不够？帮我做 13 周资金预测
-→ 触发 accounting：输出 13 周滚动预测表，标记低于安全垫的周次并给行动建议
+→ 触发 china-accounting：输出 13 周滚动预测表，标记低于安全垫的周次并给行动建议
 ```
 
 ## 记忆机制：越用越懂你的公司
@@ -89,10 +115,10 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 
 ```
 ~/.china-finance-skills/companies/{公司名}/
-├── profile.md            # 公司档案（accounting / audit 共用）
-├── custom-accounts.md    # 科目扩展（accounting）
-├── policies.md           # 会计政策与习惯（accounting）
-└── findings.md           # 历史审计发现（audit）
+├── profile.md            # 公司档案（china-accounting / china-audit 共用）
+├── custom-accounts.md    # 科目扩展（china-accounting）
+├── policies.md           # 会计政策与习惯（china-accounting）
+└── findings.md           # 历史审计发现（china-audit）
 ```
 
 - **写入有门槛**：agent 的推断一律标注「请确认」，确认后才入记忆，防止记忆污染
@@ -100,13 +126,15 @@ cp -r china-finance-skills/accounting china-finance-skills/audit ~/.claude/skill
 - **隐私**：记忆只存本地（路径可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义），绝不写入 git 仓库
 - **生态飞轮**：整理记忆时发现行业通用知识，欢迎提 PR 补充进 references/
 
-机制细节见 [accounting/SKILL.md](accounting/SKILL.md) 与 [audit/SKILL.md](audit/SKILL.md) 的「记忆机制」一节。
+机制细节见 [china-accounting/SKILL.md](china-accounting/SKILL.md) 与 [china-audit/SKILL.md](china-audit/SKILL.md) 的「记忆机制」一节。
 
 ## 与原版的关系
 
 本仓库是对 [kylin985ti/china-accounting-skills](https://github.com/kylin985ti/china-accounting-skills)（25 个独立技能）的**结构重构**：全部财务知识内容保留，组织方式从"25 个平铺技能"改为"2 个入口技能 + 按需加载的参考文档"，并统一了跨文档引用路径。内容层面的改动仅为合并与引用修正，未增删财务知识点。
 
 v1.2.0 起新增 7 份管理会计与资金管理类参考文档（ar-aging / cash-forecast / consolidation / financial-analysis / customer-profitability / cost-volume-profit / bank-reconciliation），为本仓库原创内容。
+
+v1.3.0 起技能目录更名为 `china-accounting/`、`china-audit/`（对齐 Agent Skills 开放标准「目录名 = 技能名」约定，兼容 OpenCode 等严格校验的平台），并新增 Claude Code marketplace 与多平台安装支持（Codex / Gemini CLI / Cursor / OpenCode / GitHub Copilot / Trae / WorkBuddy / 千问办公 / 豆包工作）。
 
 ## 免责声明
 

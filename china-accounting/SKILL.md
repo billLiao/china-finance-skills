@@ -125,7 +125,7 @@ description: 中国会计准则记账理账技能 — 准则选择、会计科�
 
 ### 记忆位置
 
-默认 `~/.china-finance-skills/companies/{公司名}/`，可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义根目录。记忆文件包含公司财务数据，**只存本地，绝不写入任何 git 仓库或上传**。与 audit 技能共用同一记忆根目录（`profile.md` 共享）。
+默认 `~/.china-finance-skills/companies/{公司名}/`，可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义根目录。记忆文件包含公司财务数据，**只存本地，绝不写入任何 git 仓库或上传**。与 china-audit 技能共用同一记忆根目录（`profile.md` 共享）。
 
 ### 工作流
 

@@ -116,11 +116,11 @@ description: 中国注册会计师审计准则(CAS)审计技能 — 风险评估
 
 ### 记忆位置
 
-与 accounting 技能共用记忆根目录：默认 `~/.china-finance-skills/companies/{被审计单位名}/`，可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义。审计发现包含客户敏感信息，**只存本地，绝不写入任何 git 仓库或上传**。
+与 china-accounting 技能共用记忆根目录：默认 `~/.china-finance-skills/companies/{被审计单位名}/`，可用环境变量 `CHINA_FINANCE_MEMORY_PATH` 自定义。审计发现包含客户敏感信息，**只存本地，绝不写入任何 git 仓库或上传**。
 
 ### 工作流
 
-1. **项目启动**：确认被审计单位 → 读取 `profile.md`（不存在则先建档，可复用 accounting 技能已建的公司档案）和 `findings.md`
+1. **项目启动**：确认被审计单位 → 读取 `profile.md`（不存在则先建档，可复用 china-accounting 技能已建的公司档案）和 `findings.md`
 2. **上年发现是本年必查项**：`findings.md` 中状态为「跟进中 / 未更正」的事项，自动列入本年审计重点，并在风险评估时重新评估相关错报风险
 3. **连续两年出现同类问题**：提示升级为重点关注，考虑对相关认定扩大样本或追加程序
 4. **审计发现经用户确认后**写入 `findings.md` 并告知写入了什么；未确认的推断只在对话中呈现，不入记忆
